@@ -3,7 +3,8 @@ import debug from 'debug';
 import dotenv from 'dotenv';
 import express from 'express';
 import * as expressWinston from 'express-winston';
-import * as http from 'http';
+import fs from 'fs';
+import * as https from 'https';
 import * as winston from 'winston';
 
 import { CommonRoutesConfig } from './common/common.routes.config';
@@ -12,8 +13,13 @@ import { SessionRoutes } from './session/session.routes.config';
 
 dotenv.config();
 
+const options = {
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem'),
+};
+
 const app = express();
-const server = http.createServer(app);
+const server = https.createServer(options, app);
 const port = process.env.SERVER_PORT;
 
 const routes: CommonRoutesConfig[] = [];
