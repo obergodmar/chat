@@ -49,7 +49,7 @@ export const ChatContainer = memo(({ updatePartner }: IChatContainer) => {
     }
 
     const checkInterval = setInterval(() => {
-      request('http://localhost:8080/check', 'POST', { username })
+      request('/check', 'POST', { username })
         .then((res) => {
           if (res.status !== 200) {
             navigate('/', { replace: true });

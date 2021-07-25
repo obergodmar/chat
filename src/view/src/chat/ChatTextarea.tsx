@@ -41,7 +41,7 @@ export const ChatTextarea = memo(() => {
   const { username } = useContext(SessionContext);
 
   const handleSend = useCallback(() => {
-    request('http://localhost:8080/message', 'POST', { username, text });
+    request('/message', 'POST', { username, text });
 
     setText('');
   }, [text, username]);

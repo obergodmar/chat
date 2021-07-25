@@ -58,7 +58,7 @@ export const App = memo(() => {
   const [sessionError, setSessionError] = useState('');
 
   const handleChangeUsername = useCallback((username: string) => {
-    request('http://localhost:8080/username', 'POST', { username })
+    request('/username', 'POST', { username })
       .then((value) => value.json())
       .then(({ sessionId, error }) => {
         if (error) {

@@ -13,7 +13,7 @@ export function request(
       body = JSON.stringify(data);
     }
 
-    return fetch(url, {
+    return fetch(`${process.env.REACT_APP_HOSTNAME}${url}`, {
       method,
       headers,
       body,
