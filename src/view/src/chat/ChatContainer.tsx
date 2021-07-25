@@ -2,6 +2,7 @@ import { navigate, RouteComponentProps } from '@reach/router';
 
 import { memo, useContext, useEffect, useState } from 'react';
 
+import { equals } from 'ramda';
 import styled from 'styled-components';
 
 import { IPartner, SessionContext } from '../App';
@@ -60,7 +61,9 @@ export const ChatContainer = memo(({ updatePartner }: IChatContainer) => {
         .then(({ partner, messages: messagesList }) => {
           updatePartner(partner);
 
-          setMessages(messagesList);
+          setMessages((values) =>
+            equals(values, messagesList) ? values : messagesList
+          );
         });
     }, 500);
 

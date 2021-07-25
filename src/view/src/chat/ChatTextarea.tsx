@@ -4,6 +4,8 @@ import {
   memo,
   useCallback,
   useContext,
+  useEffect,
+  useRef,
   useState,
 } from 'react';
 
@@ -39,6 +41,19 @@ const TextareaButton = styled.button`
 export const ChatTextarea = memo(() => {
   const [text, setText] = useState('');
   const { username } = useContext(SessionContext);
+  const ref = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    const handleTyping = () => {
+      ref.current?.focus();
+    };
+
+    window.addEventListener('keydown', handleTyping);
+
+    return () => {
+      window.removeEventListener('keydown', handleTyping);
+    };
+  }, []);
 
   const handleSend = useCallback(() => {
     request('/message', 'POST', { username, text });
@@ -69,6 +84,7 @@ export const ChatTextarea = memo(() => {
   return (
     <TextareaContainer>
       <Textarea
+        ref={ref}
         value={text}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
