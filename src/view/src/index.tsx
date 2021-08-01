@@ -1,5 +1,15 @@
 import ReactDOM from 'react-dom';
 
+import { GlobalStyle } from 'App.styled';
+import { SessionProvider } from 'data/sessionContext/sessionContext';
+
 import { App } from './App';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const AppWithData = () => (
+  <SessionProvider>
+    <GlobalStyle />
+    <App />
+  </SessionProvider>
+);
+
+ReactDOM.render(<AppWithData />, document.getElementById('root'));

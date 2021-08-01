@@ -3,15 +3,14 @@ import {
   KeyboardEvent,
   memo,
   useCallback,
-  useContext,
   useEffect,
   useRef,
   useState,
 } from 'react';
 
+import { useSession } from 'data/sessionContext/sessionContext';
 import styled from 'styled-components';
 
-import { SessionContext } from '../App';
 import { request } from '../utils/request';
 
 const Textarea = styled.textarea.attrs({
@@ -40,7 +39,7 @@ const TextareaButton = styled.button`
 
 export const ChatTextarea = memo(() => {
   const [text, setText] = useState('');
-  const { username } = useContext(SessionContext);
+  const { username } = useSession();
   const ref = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {

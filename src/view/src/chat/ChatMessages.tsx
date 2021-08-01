@@ -1,8 +1,8 @@
-import { memo, useContext, useEffect, useRef } from 'react';
+import { memo, useEffect, useRef } from 'react';
 
+import { useSession } from 'data/sessionContext/sessionContext';
 import styled from 'styled-components';
 
-import { SessionContext } from '../App';
 import { IMessage } from './ChatContainer';
 
 const MessagesContainer = styled.div`
@@ -42,7 +42,7 @@ interface IChatMessagesProps {
 }
 
 export const ChatMessages = memo(({ messages }: IChatMessagesProps) => {
-  const { partner } = useContext(SessionContext);
+  const { partner } = useSession();
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

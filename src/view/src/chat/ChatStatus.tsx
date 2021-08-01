@@ -1,15 +1,14 @@
-import { memo, useContext } from 'react';
+import { memo } from 'react';
 
+import { useSession } from 'data/sessionContext/sessionContext';
 import styled from 'styled-components';
-
-import { SessionContext } from '../App';
 
 const Status = styled.span``;
 
 const Strong = styled.strong``;
 
 export const ChatStatus = memo(() => {
-  const { partner, sessionId } = useContext(SessionContext);
+  const { partner, sessionId } = useSession();
 
   return (
     <Status>

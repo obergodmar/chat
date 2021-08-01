@@ -1,11 +1,11 @@
 import { navigate, RouteComponentProps } from '@reach/router';
 
-import { memo, useContext, useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 
+import { useSession } from 'data/sessionContext/sessionContext';
 import { equals } from 'ramda';
 import styled from 'styled-components';
 
-import { IPartner, SessionContext } from '../App';
 import { request } from '../utils/request';
 import { ChatMessages } from './ChatMessages';
 import { ChatStatus } from './ChatStatus';
@@ -25,22 +25,14 @@ const Container = styled.div`
   }
 `;
 
-interface IChatContainer extends RouteComponentProps {
-  updatePartner: (partner: IPartner) => void;
-}
-
 export interface IMessage {
   id: string;
   username: string;
   text: string;
 }
 
-export const ChatContainer = memo(({ updatePartner }: IChatContainer) => {
-  const {
-    username,
-    sessionId,
-    partner: sessionPartner,
-  } = useContext(SessionContext);
+export const ChatContainer = memo(({}: RouteComponentProps) => {
+  const { username, sessionId, updateSession } = useSession();
 
   const [messages, setMessages] = useState<IMessage[]>([]);
 
@@ -54,12 +46,14 @@ export const ChatContainer = memo(({ updatePartner }: IChatContainer) => {
         .then((res) => {
           if (res.status !== 200) {
             navigate('/', { replace: true });
+
+            return Promise.reject();
           }
 
           return res.json();
         })
         .then(({ partner, messages: messagesList }) => {
-          updatePartner(partner);
+          updateSession({ partner });
 
           setMessages((values) =>
             equals(values, messagesList) ? values : messagesList
@@ -70,7 +64,7 @@ export const ChatContainer = memo(({ updatePartner }: IChatContainer) => {
     return () => {
       clearInterval(checkInterval);
     };
-  }, [sessionId, sessionPartner, updatePartner, username]);
+  }, [sessionId, updateSession, username]);
 
   return username ? (
     <>

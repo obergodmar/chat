@@ -28,6 +28,7 @@ module.exports = {
     JSX: 'readonly',
   },
   rules: {
+    'jsx-a11y/no-noninteractive-tabindex': 'off',
     'no-undef': 'off',
     'no-cosole': 'off',
     'react/react-in-jsx-scope': 'off',
