@@ -12,7 +12,7 @@ import { v4 } from 'uuid';
 import { LETTER_WIDTH } from './helpers';
 import { Caret, Container, Letter, Placeholder } from './input.styled';
 
-interface IInputProps {
+export interface IInputProps {
   value: string;
   onChange: (value: string) => void;
   onEnter?: () => void;

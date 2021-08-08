@@ -8,13 +8,18 @@ import {
 
 type Preferences = Omit<IPreferencesContext, 'updatePreferences'>;
 
+export enum InputsEnum {
+  DEFAULT = 'default',
+  CUSTOM = 'custom',
+}
+
 export interface IPreferencesContext {
-  inputs: 'default' | 'custom';
-  updatePreferences: (newSession: Partial<Preferences>) => void;
+  inputs: InputsEnum;
+  updatePreferences: (newPreferences: Partial<Preferences>) => void;
 }
 
 const initialPreferences: Preferences = {
-  inputs: 'custom',
+  inputs: InputsEnum.CUSTOM,
 };
 
 const PreferencesContext = createContext<IPreferencesContext | undefined>(

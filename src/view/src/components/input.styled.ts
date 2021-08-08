@@ -46,6 +46,7 @@ export const Container = styled.div.attrs({
   role: 'textbox',
   tabIndex: 0,
 })`
+  cursor: text;
   position: relative;
   box-sizing: content-box;
   min-height: 17px;

@@ -1,15 +1,19 @@
 import ReactDOM from 'react-dom';
 
 import { GlobalStyle } from 'App.styled';
-import { SessionProvider } from 'data/sessionContext/sessionContext';
+import { PreferencesProvider, SessionProvider } from 'data';
+import { Preferences } from 'preferences';
 
 import { App } from './App';
 
 const AppWithData = () => (
-  <SessionProvider>
-    <GlobalStyle />
-    <App />
-  </SessionProvider>
+  <PreferencesProvider>
+    <SessionProvider>
+      <GlobalStyle />
+      <App />
+      <Preferences />
+    </SessionProvider>
+  </PreferencesProvider>
 );
 
 ReactDOM.render(<AppWithData />, document.getElementById('root'));

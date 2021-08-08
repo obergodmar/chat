@@ -1,7 +1,8 @@
+import { DefaultInput as DefaultInputComponent } from 'components/DefaultInput';
 import { Input } from 'components/Input';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const NameInput = styled(Input.type)`
+const InputStyles = css`
   z-index: 1;
   background-color: #38383d;
   border: none;
@@ -12,6 +13,28 @@ export const NameInput = styled(Input.type)`
   color: #ffffff;
   width: 200px;
   min-width: 200px;
+`;
+
+export const CustomInput = styled(Input.type)`
+  ${InputStyles}
+`;
+
+export const DefaultInput = styled(DefaultInputComponent.type)`
+  ${InputStyles}
+
+  letter-spacing: 2.4px;
+  width: 260px;
+  min-width: 260px;
+
+  &:active,
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    letter-spacing: 0;
+    color: #74747c;
+  }
 `;
 
 export const EnterButton = styled.button`
